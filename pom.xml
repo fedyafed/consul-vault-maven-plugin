@@ -7,9 +7,37 @@
     <packaging>pom</packaging>
     <version>0.0.1-SNAPSHOT</version>
 
-    <name>consul-vault-maven-plugin Maven Mojo</name>
+    <name>Consul-Vault Maven Plugin</name>
     <description>Get properties for Maven project from Consul K/V and Vault secret store.</description>
     <url>https://github.com/fedyafed/consul-vault-maven-plugin</url>
+    <inceptionYear>2018</inceptionYear>
+
+    <developers>
+        <developer>
+            <id>fedyafed</id>
+            <name>Ivan Fedotov</name>
+            <email>fedyafed@mail.ru</email>
+            <timezone>+03:00</timezone>
+            <url>https://github.com/fedyafed</url>
+        </developer>
+    </developers>
+
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>http://www.opensource.org/licenses/mit-license.php</url>
+        </license>
+    </licenses>
+
+    <scm>
+        <connection>scm:git:git://github.com/fedyafed/consul-vault-maven-plugin.git</connection>
+        <developerConnection>scm:git:git@github.com:fedyafed/consul-vault-maven-plugin.git</developerConnection>
+        <url>http://github.com/fedyafed/consul-vault-maven-plugin/tree/master</url>
+    </scm>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
 
     <dependencies>
         <dependency>

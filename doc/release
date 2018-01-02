@@ -1,0 +1,7 @@
+Release:
+mvn release:clean release:prepare
+mvn release:perform
+git push
+
+Before run test project, remove jar from local store:
+mvn build-helper:remove-project-artifact

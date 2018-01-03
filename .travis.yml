@@ -1,1 +1,28 @@
 language: java
+cache:
+    directories:
+    - $HOME/.m2
+branches:
+    except:
+        - gh-pages
+
+script: "./mvnw package site -Prelease"
+
+deploy:
+  -
+    provider: pages
+    skip_cleanup: true
+    github_token: $GITHUB_TOKEN # Set in travis-ci.org dashboard
+    local_dir: ${TRAVIS_BUILD_DIR}/target/site
+    on:
+      branch: master
+      tags: true
+  -
+    provider: releases
+    api_key: $GITHUB_TOKEN
+    file_glob: true
+    file: ${TRAVIS_BUILD_DIR}/target/*.jar
+    skip_cleanup: true
+    on:
+      branch: master
+      tags: true

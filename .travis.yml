@@ -6,7 +6,7 @@ branches:
     except:
         - gh-pages
 
-script: "./mvnw package site -Prelease"
+script: "cp .travis.settings.xml $HOME/.m2/settings.xml && ./mvnw package site -Prelease"
 
 deploy:
   -

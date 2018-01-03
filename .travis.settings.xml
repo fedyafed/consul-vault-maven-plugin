@@ -1,0 +1,5 @@
+<server>
+    <id>github</id>
+    <username>fedyafed</username>
+    <password>${env.GITHUB_PASS}</password>
+</server>

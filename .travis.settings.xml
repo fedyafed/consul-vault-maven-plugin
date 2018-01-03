@@ -1,5 +1,9 @@
-<server>
-    <id>github</id>
-    <username>fedyafed</username>
-    <password>${env.GITHUB_PASS}</password>
-</server>
+<settings>
+    <servers>
+        <server>
+            <id>github</id>
+            <username>fedyafed</username>
+            <password>${env.GITHUB_PASS}</password>
+        </server>
+    </servers>
+</settings>

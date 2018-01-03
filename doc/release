@@ -1,5 +1,5 @@
 Release:
-mvn release:clean release:prepare
+mvn release:clean release:prepare -B
 mvn release:perform
 git push && git push --tags
 

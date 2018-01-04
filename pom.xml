@@ -4,7 +4,7 @@
     <groupId>com.github.fedyafed</groupId>
     <artifactId>consul-vault-maven-plugin</artifactId>
     <packaging>maven-plugin</packaging>
-    <version>0.0.3.2-SNAPSHOT</version>
+    <version>0.0.3.2</version>
 
     <name>Consul-Vault Maven Plugin</name>
     <description>Get properties for Maven project from Consul K/V and Vault secret store.</description>
@@ -38,7 +38,7 @@
         <connection>scm:git:git://github.com/fedyafed/consul-vault-maven-plugin.git</connection>
         <developerConnection>scm:git:git@github.com:fedyafed/consul-vault-maven-plugin.git</developerConnection>
         <url>http://github.com/fedyafed/consul-vault-maven-plugin/tree/master</url>
-        <tag>HEAD</tag>
+        <tag>0.0.3.2</tag>
     </scm>
 
     <issueManagement>

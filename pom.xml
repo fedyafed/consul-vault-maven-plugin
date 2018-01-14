@@ -105,7 +105,7 @@
                     <failsOnError>true</failsOnError>
                     <linkXRef>false</linkXRef>
                     <violationSeverity>warning</violationSeverity>
-                    <!--<excludes>${project.groupId}.generated</excludes>-->
+                    <excludes>**/generated/**/*</excludes>
                     <includeTestSourceDirectory>true</includeTestSourceDirectory>
                 </configuration>
                 <executions>
@@ -289,7 +289,7 @@
                     <failsOnError>true</failsOnError>
                     <linkXRef>false</linkXRef>
                     <violationSeverity>warning</violationSeverity>
-                    <!--<excludes>${project.groupId}.generated</excludes>-->
+                    <excludes>**/generated/**/*</excludes>
                     <includeTestSourceDirectory>true</includeTestSourceDirectory>
                 </configuration>
                 <reportSets>

@@ -56,4 +56,12 @@ public class MyMojo extends AbstractMojo {
             }
         }
     }
+
+    public void setOutputDirectory(File outputDirectory) {
+        this.outputDirectory = outputDirectory;
+    }
+
+    public File getOutputDirectory() {
+        return outputDirectory;
+    }
 }

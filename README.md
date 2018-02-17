@@ -6,6 +6,8 @@
 Get properties for Maven project from [Consul](https://www.consul.io/) K/V store and 
 [Vault](https://www.vaultproject.io/) secret store.
 
+[Changelog](CHANGELOG.md)
+
 ## Building from Source
 Consul-Vault Maven plugin can be built with the included
 [maven wrapper](https://github.com/takari/maven-wrapper). You also need JDK 1.8.

@@ -18,5 +18,5 @@ If you want to build with the regular `mvn` command, you will need
 [Maven v3.5.2 or above](https://maven.apache.org/run-maven/index.html).
 
 
-Also see [CONTRIBUTING.md](CONTRIBUTING.md) if you wish to submit pull requests.
+Also see [CONTRIBUTING.md](.github/CONTRIBUTING.md) if you wish to submit pull requests.
 

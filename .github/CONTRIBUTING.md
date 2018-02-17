@@ -1,6 +1,6 @@
 # Contributing to Consul-Vault Maven plugin
 
-Consul-Vault Maven plugin is released under the [MIT license](LICENSE). If you would like to contribute
+Consul-Vault Maven plugin is released under the [MIT license](../LICENSE). If you would like to contribute
 something this document should help you get started.
 
 
@@ -18,7 +18,7 @@ to track bugs and enhancements.
 
 If you are reporting a bug, please help to speed up problem diagnosis by providing as much
 information as possible. Ideally, that would include a small
-[sample project](test-consul-vault) that reproduces the
+[sample project](../test-consul-vault) that reproduces the
 problem.
 
 First-time contributors may start with issues labeled with `help wanted` or `good first issue`.

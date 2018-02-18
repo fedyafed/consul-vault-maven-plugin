@@ -4,7 +4,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [0.0.4]
+
+
+## [Unreleased]
+### Security:
+### Added:
+### Changed:
+### Deprecated:
+### Removed:
+### Fixed:
+
+
+## [0.0.4] - 2018-02-18
 ### Added:
 - Open Source Community files:
   - CODE_OF_CONDUCT.md #10.
@@ -71,7 +82,7 @@ Included: 0.0.3, 0.0.3.1, 0.0.3.2, 0.0.3.3, 0.0.3.4, 0.0.3.5.
 - README.md.
 
 
-
+[Unreleased]: https://github.com/fedyafed/consul-vault-maven-plugin/compare/0.0.4...HEAD
 [0.0.4]: https://github.com/fedyafed/consul-vault-maven-plugin/compare/0.0.3.5...0.0.4
 [0.0.3.5]: https://github.com/fedyafed/consul-vault-maven-plugin/compare/0.0.2...0.0.3.5
 [0.0.2]: https://github.com/fedyafed/consul-vault-maven-plugin/compare/consul-vault-maven-plugin-0.0.1...0.0.2

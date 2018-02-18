@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MyMojo.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Consul-Vault Maven Plugin</a> &gt; <a href="index.source.html" class="el_package">com.github.fedyafed</a> &gt; <span class="el_source">MyMojo.java</span></div><h1>MyMojo.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (c) 2018 fedyafed.
+ */
+
+package com.github.fedyafed;
+
+import org.apache.maven.plugin.AbstractMojo;
+import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugins.annotations.LifecyclePhase;
+import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.Parameter;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
+/**
+ * Goal which touches a timestamp file.
+ */
+@Mojo(name = &quot;touch&quot;, defaultPhase = LifecyclePhase.INITIALIZE)
+<span class="fc" id="L21">public class MyMojo extends AbstractMojo {</span>
+    /**
+     * Location of the file.
+     */
+    @Parameter(defaultValue = &quot;${project.build.directory}&quot;, required = true)
+    private File outputDirectory;
+
+
+    /**
+     * Mojo execution.
+      */
+    public void execute()
+            throws MojoExecutionException {
+<span class="nc" id="L34">        File f = outputDirectory;</span>
+
+<span class="nc bnc" id="L36" title="All 2 branches missed.">        if (!f.exists()) {</span>
+<span class="nc" id="L37">            f.mkdirs();</span>
+        }
+
+<span class="nc" id="L40">        File touch = new File(f, &quot;touch.txt&quot;);</span>
+
+<span class="nc" id="L42">        FileWriter w = null;</span>
+        try {
+<span class="nc" id="L44">            w = new FileWriter(touch);</span>
+
+<span class="nc" id="L46">            w.write(&quot;touch.txt&quot;);</span>
+<span class="nc" id="L47">        } catch (IOException e) {</span>
+<span class="nc" id="L48">            throw new MojoExecutionException(&quot;Error creating file &quot; + touch, e);</span>
+        } finally {
+<span class="nc bnc" id="L50" title="All 2 branches missed.">            if (w != null) {</span>
+                try {
+<span class="nc" id="L52">                    w.close();</span>
+<span class="nc" id="L53">                } catch (IOException e) {</span>
+                    // ignore
+<span class="nc" id="L55">                }</span>
+            }
+        }
+<span class="nc" id="L58">    }</span>
+
+    public void setOutputDirectory(File outputDirectory) {
+<span class="fc" id="L61">        this.outputDirectory = outputDirectory;</span>
+<span class="fc" id="L62">    }</span>
+
+    public File getOutputDirectory() {
+<span class="fc" id="L65">        return outputDirectory;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.0.201801022044</span></div></body></html>

@@ -1,7 +1,9 @@
 # Consul-Vault Maven plugin
 
-[![Build Status](https://travis-ci.org/fedyafed/consul-vault-maven-plugin.svg?branch=master)](https://travis-ci.org/fedyafed/consul-vault-maven-plugin)
+[![Licence](https://img.shields.io/github/license/fedyafed/consul-vault-maven-plugin.svg)](https://github.com/fedyafed/consul-vault-maven-plugin/blob/master/LICENSE)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.fedyafed/consul-vault-maven-plugin/badge.svg?style=flat)](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.github.fedyafed%22%20AND%20a%3A%22consul-vault-maven-plugin%22)
+[![GitHub Release Date](https://img.shields.io/github/release-date/fedyafed/consul-vault-maven-plugin.svg)](https://github.com/fedyafed/consul-vault-maven-plugin/releases)
+[![Build Status](https://travis-ci.org/fedyafed/consul-vault-maven-plugin.svg?branch=master)](https://travis-ci.org/fedyafed/consul-vault-maven-plugin)
 
 Get properties for Maven project from [Consul](https://www.consul.io/) K/V store and 
 [Vault](https://www.vaultproject.io/) secret store.

@@ -10,6 +10,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Security:
 ### Added:
 - Pdf generation #24.
+- Badges #16:
+  - Licence
+  - GitHub Release Date
+
 ### Changed:
 ### Deprecated:
 ### Removed:

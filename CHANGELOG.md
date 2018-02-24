@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Security:
 ### Added:
+- Pdf generation #24.
 ### Changed:
 ### Deprecated:
 ### Removed:

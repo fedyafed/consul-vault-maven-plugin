@@ -18,7 +18,9 @@ deploy:
     provider: releases
     api_key: $GITHUB_TOKEN
     file_glob: true
-    file: ${TRAVIS_BUILD_DIR}/target/*.jar
+    file:
+      - ${TRAVIS_BUILD_DIR}/target/*.jar
+      - ${TRAVIS_BUILD_DIR}/target/pdf/*.pdf
     skip_cleanup: true
     on:
       branch: master

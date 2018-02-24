@@ -16,6 +16,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.version>3.2</maven.version>
         <java.version>1.8</java.version>
+        <doxiaSitetoolsVersion>1.8</doxiaSitetoolsVersion>
     </properties>
 
     <developers>
@@ -288,6 +289,64 @@
                         <phase>site-deploy</phase>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pdf-plugin</artifactId>
+                <version>1.4</version>
+                <executions>
+                    <execution>
+                        <id>pdf</id>
+                        <phase>site</phase>
+                        <goals>
+                            <goal>pdf</goal>
+                        </goals>
+                        <configuration>
+                            <includeReports>false</includeReports>
+                        </configuration>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <!-- Upgrade Doxia Sitetools -->
+                    <dependency>
+                        <groupId>org.apache.maven.doxia</groupId>
+                        <artifactId>doxia-integration-tools</artifactId>
+                        <version>${doxiaSitetoolsVersion}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.apache.maven.doxia</groupId>
+                        <artifactId>doxia-doc-renderer</artifactId>
+                        <version>${doxiaSitetoolsVersion}</version>
+                        <exclusions>
+                            <exclusion>
+                                <groupId>org.codehaus.plexus</groupId>
+                                <artifactId>plexus-container-default</artifactId>
+                            </exclusion>
+                        </exclusions>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.apache.maven.doxia</groupId>
+                        <artifactId>doxia-decoration-model</artifactId>
+                        <version>${doxiaSitetoolsVersion}</version>
+                        <exclusions>
+                            <exclusion>
+                                <groupId>org.codehaus.plexus</groupId>
+                                <artifactId>plexus-container-default</artifactId>
+                            </exclusion>
+                        </exclusions>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.apache.maven.doxia</groupId>
+                        <artifactId>doxia-site-renderer</artifactId>
+                        <version>${doxiaSitetoolsVersion}</version>
+                        <exclusions>
+                            <exclusion>
+                                <groupId>org.codehaus.plexus</groupId>
+                                <artifactId>plexus-container-default</artifactId>
+                            </exclusion>
+                        </exclusions>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
     </build>

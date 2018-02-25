@@ -11,13 +11,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added:
 - Pdf generation #24.
 - Badges #16:
-  - Licence
-  - GitHub Release Date
+  - Licence.
+  - GitHub Release Date.
+- Reports #22:
+  - Surefire Report.
+  - Failsafe Report.
+  - JDepend Report.
 
 ### Changed:
 ### Deprecated:
 ### Removed:
 ### Fixed:
+- Run integration tests in Travis CI on tags.   
 
 
 ## [0.0.4] - 2018-02-18

@@ -9,7 +9,7 @@ branches:
 deploy:
   -
     provider: script
-    script: "cp .travis.settings.xml $HOME/.m2/settings.xml && ./mvnw package site-deploy -Prelease"
+    script: "cp .travis.settings.xml $HOME/.m2/settings.xml && ./mvnw verify site-deploy -Prelease"
     skip_cleanup: true
     on:
       branch: master

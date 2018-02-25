@@ -13,10 +13,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Badges #16:
   - Licence.
   - GitHub Release Date.
-- Reports #22:
-  - Surefire Report.
-  - Failsafe Report.
-  - JDepend Report.
+- Reports:
+  - Surefire Report #22.
+  - Failsafe Report #22.
+  - JDepend Report #22.
+  - Dependency Updates Report #23.
+  - Property Updates Report #23.
+  - Plugin Updates Report #23.
 
 ### Changed:
 ### Deprecated:

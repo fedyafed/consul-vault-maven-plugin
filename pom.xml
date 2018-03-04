@@ -109,8 +109,6 @@
                     <headerLocation>checkstyle-header.txt</headerLocation>
                     <encoding>UTF-8</encoding>
                     <consoleOutput>true</consoleOutput>
-                    <failsOnError>true</failsOnError>
-                    <linkXRef>false</linkXRef>
                     <violationSeverity>warning</violationSeverity>
                     <excludes>**/generated/**/*</excludes>
                     <includeTestSourceDirectory>true</includeTestSourceDirectory>
@@ -118,7 +116,7 @@
                 <executions>
                     <execution>
                         <id>validate</id>
-                        <phase>validate</phase>
+                        <phase>verify</phase>
                         <goals>
                             <goal>check</goal>
                         </goals>
@@ -249,6 +247,28 @@
                         <goals>
                             <goal>integration-test</goal>
                             <goal>verify</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>3.9.0</version>
+                <configuration>
+                    <printFailingErrors>true</printFailingErrors>
+                    <analysisCache>true</analysisCache>
+                    <targetJdk>${java.version}</targetJdk>
+                    <excludes>
+                        <exclude>**/generated/*.java</exclude>
+                    </excludes>
+                    <includeTests>true</includeTests>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
+                            <goal>cpd-check</goal>
                         </goals>
                     </execution>
                 </executions>
@@ -430,17 +450,36 @@
                     <configLocation>checkstyle.xml</configLocation>
                     <headerLocation>checkstyle-header.txt</headerLocation>
                     <encoding>UTF-8</encoding>
-                    <consoleOutput>true</consoleOutput>
-                    <failsOnError>true</failsOnError>
-                    <linkXRef>false</linkXRef>
-                    <violationSeverity>warning</violationSeverity>
                     <excludes>**/generated/**/*</excludes>
                     <includeTestSourceDirectory>true</includeTestSourceDirectory>
+                    <failOnViolation>false</failOnViolation>
                 </configuration>
                 <reportSets>
                     <reportSet>
                         <reports>
                             <report>checkstyle</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>3.9.0</version>
+                <configuration>
+                    <analysisCache>true</analysisCache>
+                    <targetJdk>${java.version}</targetJdk>
+                    <excludes>
+                        <exclude>**/generated/*.java</exclude>
+                    </excludes>
+                    <skipEmptyReport>false</skipEmptyReport>
+                    <includeTests>true</includeTests>
+                </configuration>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>pmd</report>
+                            <report>cpd</report>
                         </reports>
                     </reportSet>
                 </reportSets>

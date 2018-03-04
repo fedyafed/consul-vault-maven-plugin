@@ -20,12 +20,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
   - Dependency Updates Report #23.
   - Property Updates Report #23.
   - Plugin Updates Report #23.
+  - PMD Report #20.
+  - CPD Report #20.
 
 ### Changed:
 ### Deprecated:
 ### Removed:
 ### Fixed:
-- Run integration tests in Travis CI on tags.   
+- Run integration tests in Travis CI on tags.
+- Run mvn site - Checkstyle Report with violations.
 
 
 ## [0.0.4] - 2018-02-18

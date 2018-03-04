@@ -28,7 +28,7 @@ public class MyMojo extends AbstractMojo {
 
     /**
      * Mojo execution.
-      */
+     */
     public void execute()
             throws MojoExecutionException {
         File f = outputDirectory;
@@ -39,21 +39,10 @@ public class MyMojo extends AbstractMojo {
 
         File touch = new File(f, "touch.txt");
 
-        FileWriter w = null;
-        try {
-            w = new FileWriter(touch);
-
+        try (FileWriter w = new FileWriter(touch)) {
             w.write("touch.txt");
         } catch (IOException e) {
             throw new MojoExecutionException("Error creating file " + touch, e);
-        } finally {
-            if (w != null) {
-                try {
-                    w.close();
-                } catch (IOException e) {
-                    // ignore
-                }
-            }
         }
     }
 

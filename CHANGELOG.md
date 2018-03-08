@@ -6,8 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 
 
-## [Unreleased]
-### Security:
+## [0.0.5] - 2018-03-08
 ### Added:
 - Pdf generation [#24](https://github.com/fedyafed/consul-vault-maven-plugin/issues/24).
 - Badges [#16](https://github.com/fedyafed/consul-vault-maven-plugin/issues/16):
@@ -29,9 +28,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
   - Test Javadoc Report [#20](https://github.com/fedyafed/consul-vault-maven-plugin/issues/20).
   - Linkcheck Report [#20](https://github.com/fedyafed/consul-vault-maven-plugin/issues/20).
 
-### Changed:
-### Deprecated:
-### Removed:
 ### Fixed:
 - Run integration tests in Travis CI on tags.
 - Run mvn site - Checkstyle Report with violations.
@@ -105,7 +101,7 @@ Included: 0.0.3, 0.0.3.1, 0.0.3.2, 0.0.3.3, 0.0.3.4, 0.0.3.5.
 - README.md.
 
 
-[Unreleased]: https://github.com/fedyafed/consul-vault-maven-plugin/compare/0.0.4...HEAD
+[0.0.5]: https://github.com/fedyafed/consul-vault-maven-plugin/compare/0.0.4...0.0.5
 [0.0.4]: https://github.com/fedyafed/consul-vault-maven-plugin/compare/0.0.3.5...0.0.4
 [0.0.3.5]: https://github.com/fedyafed/consul-vault-maven-plugin/compare/0.0.2...0.0.3.5
 [0.0.2]: https://github.com/fedyafed/consul-vault-maven-plugin/compare/consul-vault-maven-plugin-0.0.1...0.0.2

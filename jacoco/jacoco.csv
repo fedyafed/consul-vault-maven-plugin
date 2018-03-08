@@ -1,2 +1,3 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
-Consul-Vault Maven Plugin,com.github.fedyafed,MyMojo,46,10,4,0,14,4,3,3,1,3
+Consul-Vault Maven Plugin,com.github.fedyafed,MyMojo,63,10,4,0,13,4,3,3,1,3
+Consul-Vault Maven Plugin,com.github.fedyafed.generated,HelpMojo,893,0,110,0,159,0,71,0,16,0

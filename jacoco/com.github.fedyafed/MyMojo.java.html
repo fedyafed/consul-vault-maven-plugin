@@ -10,15 +10,14 @@ import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 
 /**
  * Goal which touches a timestamp file.
  */
 @Mojo(name = &quot;touch&quot;, defaultPhase = LifecyclePhase.INITIALIZE)
-<span class="fc" id="L21">public class MyMojo extends AbstractMojo {</span>
+<span class="fc" id="L20">public class MyMojo extends AbstractMojo {</span>
     /**
      * Location of the file.
      */
@@ -28,41 +27,34 @@ import java.io.IOException;
 
     /**
      * Mojo execution.
-      */
+     */
     public void execute()
             throws MojoExecutionException {
-<span class="nc" id="L34">        File f = outputDirectory;</span>
+<span class="nc" id="L33">        File f = outputDirectory;</span>
 
-<span class="nc bnc" id="L36" title="All 2 branches missed.">        if (!f.exists()) {</span>
-<span class="nc" id="L37">            f.mkdirs();</span>
+<span class="nc bnc" id="L35" title="All 2 branches missed.">        if (!f.exists()) {</span>
+<span class="nc" id="L36">            boolean dirCreated = f.mkdirs();</span>
+<span class="nc bnc" id="L37" title="All 2 branches missed.">            if (!dirCreated) {</span>
+<span class="nc" id="L38">                throw new MojoExecutionException(&quot;Error creating directory &quot; + f);</span>
+            }
         }
 
-<span class="nc" id="L40">        File touch = new File(f, &quot;touch.txt&quot;);</span>
+<span class="nc" id="L42">        File touch = new File(f, &quot;touch.txt&quot;);</span>
 
-<span class="nc" id="L42">        FileWriter w = null;</span>
-        try {
-<span class="nc" id="L44">            w = new FileWriter(touch);</span>
-
+<span class="nc" id="L44">        try (OutputStream stream = new FileOutputStream(touch);</span>
+<span class="nc" id="L45">             Writer w = new OutputStreamWriter(stream, StandardCharsets.UTF_8)) {</span>
 <span class="nc" id="L46">            w.write(&quot;touch.txt&quot;);</span>
 <span class="nc" id="L47">        } catch (IOException e) {</span>
 <span class="nc" id="L48">            throw new MojoExecutionException(&quot;Error creating file &quot; + touch, e);</span>
-        } finally {
-<span class="nc bnc" id="L50" title="All 2 branches missed.">            if (w != null) {</span>
-                try {
-<span class="nc" id="L52">                    w.close();</span>
-<span class="nc" id="L53">                } catch (IOException e) {</span>
-                    // ignore
-<span class="nc" id="L55">                }</span>
-            }
-        }
-<span class="nc" id="L58">    }</span>
+<span class="nc" id="L49">        }</span>
+<span class="nc" id="L50">    }</span>
 
     public void setOutputDirectory(File outputDirectory) {
-<span class="fc" id="L61">        this.outputDirectory = outputDirectory;</span>
-<span class="fc" id="L62">    }</span>
+<span class="fc" id="L53">        this.outputDirectory = outputDirectory;</span>
+<span class="fc" id="L54">    }</span>
 
     public File getOutputDirectory() {
-<span class="fc" id="L65">        return outputDirectory;</span>
+<span class="fc" id="L57">        return outputDirectory;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.0.201801022044</span></div></body></html>

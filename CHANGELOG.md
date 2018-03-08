@@ -35,7 +35,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed:
 - Run integration tests in Travis CI on tags.
 - Run mvn site - Checkstyle Report with violations.
-- Links to issues in changelog. [#26](https://github.com/fedyafed/consul-vault-maven-plugin/issues/26).
+- Links to issues in changelog [#26](https://github.com/fedyafed/consul-vault-maven-plugin/issues/26).
 
 
 ## [0.0.4] - 2018-02-18

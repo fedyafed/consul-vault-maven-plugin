@@ -7,11 +7,14 @@
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>test-consul-vault</name>
-    <url>http://maven.apache.org</url>
+    <name>Consul-Vault Maven Plugin Test</name>
+    <description>Test getting properties for Maven project from Consul K/V and Vault secret store.</description>
+    <url>https://github.com/fedyafed/consul-vault-maven-plugin/test-consul-vault</url>
+    <inceptionYear>2018</inceptionYear>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <test-key>321</test-key>
     </properties>
 
     <dependencies>
@@ -28,15 +31,28 @@
             <plugin>
                 <groupId>com.github.fedyafed</groupId>
                 <artifactId>consul-vault-maven-plugin</artifactId>
-                <version>0.0.5</version>
+                <version>0.1.0-SNAPSHOT</version>
+                <configuration>
+                    <prefixes>
+                        <prefix>test-prefix</prefix>
+                        <prefix>test-prefix2</prefix>
+                        <prefix>404</prefix>
+                    </prefixes>
+                </configuration>
                 <executions>
                     <execution>
-                        <goals><goal>
-                            touch
-                        </goal></goals>
+                        <goals>
+                            <goal>read-consul</goal>
+                        </goals>
                     </execution>
                 </executions>
             </plugin>
         </plugins>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
     </build>
 </project>

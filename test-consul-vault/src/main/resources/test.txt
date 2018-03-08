@@ -1,0 +1,3 @@
+Test
+substitution test-key=${test-key}
+value

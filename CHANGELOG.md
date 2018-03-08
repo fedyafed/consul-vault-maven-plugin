@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Security:
 ### Added:
+- Store to project properties key-value pairs from Consul KV with given key prefixes [#18](https://github.com/fedyafed/consul-vault-maven-plugin/issues/18).
+- Plugin Documentation Report [#18](https://github.com/fedyafed/consul-vault-maven-plugin/issues/18).
+- Test HelpMojo [#18](https://github.com/fedyafed/consul-vault-maven-plugin/issues/18).
+
 ### Changed:
 - Pdf name [#29](https://github.com/fedyafed/consul-vault-maven-plugin/issues/29).
 - Show only current version tickets in GitHub Issues report.

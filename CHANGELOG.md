@@ -6,6 +6,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 
 
+## [Unreleased]
+### Security:
+### Added:
+### Changed:
+### Deprecated:
+### Removed:
+### Fixed:
+
+
 ## [0.0.5.1] - 2018-03-08
 Included: 0.0.5
 ### Added:
@@ -103,6 +112,7 @@ Included: 0.0.3, 0.0.3.1, 0.0.3.2, 0.0.3.3, 0.0.3.4, 0.0.3.5.
 - README.md.
 
 
+[Unreleased]: https://github.com/fedyafed/consul-vault-maven-plugin/compare/0.0.5.1...HEAD
 [0.0.5.1]: https://github.com/fedyafed/consul-vault-maven-plugin/compare/0.0.4...0.0.5.1
 [0.0.4]: https://github.com/fedyafed/consul-vault-maven-plugin/compare/0.0.3.5...0.0.4
 [0.0.3.5]: https://github.com/fedyafed/consul-vault-maven-plugin/compare/0.0.2...0.0.3.5

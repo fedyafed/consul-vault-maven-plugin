@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
   - Plugin Updates Report #23.
   - PMD Report #20.
   - CPD Report #20.
+  - Findbugs Report #20.
 
 ### Changed:
 ### Deprecated:

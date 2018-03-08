@@ -10,9 +10,8 @@ import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 
 /**
  * Goal which touches a timestamp file.
@@ -34,12 +33,16 @@ public class MyMojo extends AbstractMojo {
         File f = outputDirectory;
 
         if (!f.exists()) {
-            f.mkdirs();
+            boolean dirCreated = f.mkdirs();
+            if (!dirCreated) {
+                throw new MojoExecutionException("Error creating directory " + f);
+            }
         }
 
         File touch = new File(f, "touch.txt");
 
-        try (FileWriter w = new FileWriter(touch)) {
+        try (OutputStream stream = new FileOutputStream(touch);
+             Writer w = new OutputStreamWriter(stream, StandardCharsets.UTF_8)) {
             w.write("touch.txt");
         } catch (IOException e) {
             throw new MojoExecutionException("Error creating file " + touch, e);

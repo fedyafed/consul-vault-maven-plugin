@@ -27,6 +27,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
   - Test Source Xref Report #20.
   - Javadoc Report #20.
   - Test Javadoc Report #20.
+  - Linkcheck Report #20.
 
 ### Changed:
 ### Deprecated:

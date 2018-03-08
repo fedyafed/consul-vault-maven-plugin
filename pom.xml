@@ -585,6 +585,25 @@
                     </reportSet>
                 </reportSets>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-linkcheck-plugin</artifactId>
+                <version>1.2</version>
+                <configuration>
+                    <excludedLinks>
+                        <link>#</link>
+                        <link>project-info.html</link>
+                        <link>project-reports.html</link>
+                    </excludedLinks>
+                    <forceSite>false</forceSite>
+                    <httpClientParameters>
+                        <property>
+                            <name>http.protocol.cookie-policy</name>
+                            <value>ignoreCookies</value>
+                        </property>
+                    </httpClientParameters>
+                </configuration>
+            </plugin>
         </plugins>
     </reporting>
 </project>

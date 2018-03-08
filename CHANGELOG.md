@@ -6,7 +6,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 
 
-## [0.0.5] - 2018-03-08
+## [0.0.5.1] - 2018-03-08
+Included: 0.0.5
 ### Added:
 - Pdf generation [#24](https://github.com/fedyafed/consul-vault-maven-plugin/issues/24).
 - Badges [#16](https://github.com/fedyafed/consul-vault-maven-plugin/issues/16):
@@ -29,9 +30,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
   - Linkcheck Report [#20](https://github.com/fedyafed/consul-vault-maven-plugin/issues/20).
 
 ### Fixed:
-- Run integration tests in Travis CI on tags.
+- Run tests and verify code in Travis CI on any commit.
 - Run mvn site - Checkstyle Report with violations.
 - Links to issues in changelog [#26](https://github.com/fedyafed/consul-vault-maven-plugin/issues/26).
+- Travis CI build - skip gpg.
 
 
 ## [0.0.4] - 2018-02-18
@@ -101,7 +103,7 @@ Included: 0.0.3, 0.0.3.1, 0.0.3.2, 0.0.3.3, 0.0.3.4, 0.0.3.5.
 - README.md.
 
 
-[0.0.5]: https://github.com/fedyafed/consul-vault-maven-plugin/compare/0.0.4...0.0.5
+[0.0.5.1]: https://github.com/fedyafed/consul-vault-maven-plugin/compare/0.0.4...0.0.5.1
 [0.0.4]: https://github.com/fedyafed/consul-vault-maven-plugin/compare/0.0.3.5...0.0.4
 [0.0.3.5]: https://github.com/fedyafed/consul-vault-maven-plugin/compare/0.0.2...0.0.3.5
 [0.0.2]: https://github.com/fedyafed/consul-vault-maven-plugin/compare/consul-vault-maven-plugin-0.0.1...0.0.2

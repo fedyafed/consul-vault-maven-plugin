@@ -10,6 +10,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Security:
 ### Added:
 ### Changed:
+- Pdf name [#29](https://github.com/fedyafed/consul-vault-maven-plugin/issues/29).
+- Show only current version tickets in GitHub Issues report.
+
 ### Deprecated:
 ### Removed:
 ### Fixed:

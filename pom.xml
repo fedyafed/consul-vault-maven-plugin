@@ -521,6 +521,7 @@
                     </reportSet>
                 </reportSets>
                 <configuration>
+                    <onlyCurrentVersion>true</onlyCurrentVersion>
                     <githubAPIScheme>https</githubAPIScheme>
                     <githubAPIPort>443</githubAPIPort>
                 </configuration>

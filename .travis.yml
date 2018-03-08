@@ -6,10 +6,12 @@ branches:
     except:
         - gh-pages
 
+script: "cp .travis.settings.xml $HOME/.m2/settings.xml && ./mvnw verify"
+
 deploy:
   -
     provider: script
-    script: "cp .travis.settings.xml $HOME/.m2/settings.xml && ./mvnw verify site-deploy -Prelease"
+    script: "./mvnw verify site-deploy -Prelease -Dgpg.skip=true"
     skip_cleanup: true
     on:
       branch: master

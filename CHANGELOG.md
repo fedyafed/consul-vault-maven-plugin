@@ -23,6 +23,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
   - PMD Report #20.
   - CPD Report #20.
   - Findbugs Report #20.
+  - Source Xref Report #20.
+  - Test Source Xref Report #20.
+  - Javadoc Report #20.
+  - Test Javadoc Report #20.
 
 ### Changed:
 ### Deprecated:

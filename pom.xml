@@ -64,6 +64,10 @@
             <id>ossrh</id>
             <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
         </repository>
+        <site>
+            <id>site</id>
+            <url>${project.scm.developerConnection}</url>
+        </site>
     </distributionManagement>
 
     <prerequisites>
@@ -332,19 +336,22 @@
                 </configuration>
             </plugin>
             <plugin>
-                <groupId>com.github.github</groupId>
-                <artifactId>site-maven-plugin</artifactId>
-                <version>0.12</version>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-scm-publish-plugin</artifactId>
+                <version>3.0.0</version>
                 <configuration>
-                    <message>Building site for ${project.version}</message>
+                    <scmBranch>gh-pages</scmBranch>
+                    <content>${project.build.directory}/site</content>
                     <server>github</server>
+                    <tryUpdate>true</tryUpdate>
                 </configuration>
                 <executions>
                     <execution>
-                        <goals>
-                            <goal>site</goal>
-                        </goals>
+                        <id>scm-publish</id>
                         <phase>site-deploy</phase>
+                        <goals>
+                            <goal>publish-scm</goal>
+                        </goals>
                     </execution>
                 </executions>
             </plugin>

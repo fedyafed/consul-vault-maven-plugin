@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Deprecated:
 ### Removed:
 ### Fixed:
+- Updating site in GitHub by hands - without waiting [#28](https://github.com/fedyafed/consul-vault-maven-plugin/issues/28).
 
 
 ## [0.0.5.1] - 2018-03-08

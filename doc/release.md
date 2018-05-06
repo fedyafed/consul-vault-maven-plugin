@@ -1,3 +1,9 @@
+SSH key cache:
+```
+eval `ssh-agent`
+ssh-add
+```
+
 Release:
 ```
 mvn release:clean release:prepare -B

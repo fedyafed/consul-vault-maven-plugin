@@ -10,6 +10,33 @@ Get properties for Maven project from [Consul](https://www.consul.io/) K/V store
 
 [Changelog](CHANGELOG.md)
 
+## Usage:
+
+Read from Consul KV-store all parameters from folders `config/common` and
+`config/custom`. In case any name duplicates, the last one wins.
+
+```xml
+<plugin>
+    <groupId>com.github.fedyafed</groupId>
+    <artifactId>consul-vault-maven-plugin</artifactId>
+    <version>0.1.0-SNAPSHOT</version>
+    <configuration>
+        <prefixes>
+            <prefix>config/common</prefix>
+            <prefix>config/custom</prefix>
+        </prefixes>
+    </configuration>
+    <executions>
+        <execution>
+            <goals>
+                <goal>read-consul</goal>
+            </goals>
+        </execution>
+    </executions>
+</plugin>
+```
+
+
 ## Building from Source
 Consul-Vault Maven plugin can be built with the included
 [maven wrapper](https://github.com/takari/maven-wrapper). You also need JDK 1.8.

@@ -19,7 +19,7 @@ Read from Consul KV-store all parameters from folders `config/common` and
 <plugin>
     <groupId>com.github.fedyafed</groupId>
     <artifactId>consul-vault-maven-plugin</artifactId>
-    <version>0.1.0-SNAPSHOT</version>
+    <version>0.1.0</version>
     <configuration>
         <prefixes>
             <prefix>config/common</prefix>

@@ -6,8 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 
 
-## [Unreleased]
-### Security:
+## [0.1.0] - 2018-05-06
 ### Added:
 - Store to project properties key-value pairs from Consul KV with given key prefixes [#18](https://github.com/fedyafed/consul-vault-maven-plugin/issues/18).
 - Plugin Documentation Report [#18](https://github.com/fedyafed/consul-vault-maven-plugin/issues/18).
@@ -18,8 +17,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Pdf name [#29](https://github.com/fedyafed/consul-vault-maven-plugin/issues/29).
 - Show only current version tickets in GitHub Issues report.
 
-### Deprecated:
-### Removed:
 ### Fixed:
 - Updating site in GitHub by hands - without waiting [#28](https://github.com/fedyafed/consul-vault-maven-plugin/issues/28).
 
@@ -121,7 +118,7 @@ Included: 0.0.3, 0.0.3.1, 0.0.3.2, 0.0.3.3, 0.0.3.4, 0.0.3.5.
 - README.md.
 
 
-[Unreleased]: https://github.com/fedyafed/consul-vault-maven-plugin/compare/0.0.5.1...HEAD
+[0.1.0]: https://github.com/fedyafed/consul-vault-maven-plugin/compare/0.0.5.1...0.1.0
 [0.0.5.1]: https://github.com/fedyafed/consul-vault-maven-plugin/compare/0.0.4...0.0.5.1
 [0.0.4]: https://github.com/fedyafed/consul-vault-maven-plugin/compare/0.0.3.5...0.0.4
 [0.0.3.5]: https://github.com/fedyafed/consul-vault-maven-plugin/compare/0.0.2...0.0.3.5

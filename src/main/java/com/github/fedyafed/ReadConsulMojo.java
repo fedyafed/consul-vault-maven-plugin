@@ -5,6 +5,7 @@
 package com.github.fedyafed;
 
 import com.ecwid.consul.v1.ConsulClient;
+import com.ecwid.consul.v1.OperationException;
 import com.ecwid.consul.v1.kv.model.GetValue;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -46,6 +47,12 @@ public class ReadConsulMojo extends AbstractMojo {
      */
     @Parameter(defaultValue = "${consul.port}")
     private int port = 8500;
+
+    /**
+     * Consul ACL token.
+     */
+    @Parameter(defaultValue = "${consul.token}")
+    private String token;
     private ConsulClient client;
 
     /**
@@ -67,19 +74,39 @@ public class ReadConsulMojo extends AbstractMojo {
             prefix += '/';
         }
 
-        List<GetValue> values = client.getKVValues(prefix).getValue();
+        List<GetValue> values = client.getKVValues(prefix, token).getValue();
         if (values != null) {
-            Properties properties = project.getProperties();
+            log.info("Found properties: " + values.size() + " for prefix: '" + prefix + "'");
             for (GetValue value : values) {
-                String key = getPropertyKey(value.getKey(), prefix);
-                String decodedValue = value.getDecodedValue(UTF_8);
-                log.debug("Key:\t" + key + ", value:\t" + decodedValue);
-                properties.setProperty(key, decodedValue);
+                setProjectProperty(prefix, value);
             }
-            log.info("Found properties:\t" + values.size() + " for prefix:\t" + prefix);
         } else {
-            log.warn("Key prefix\t'" + prefix + "' not found.");
+            try {
+                String singleKey = prefix.substring(0, prefix.length() - 1);
+                GetValue value = client.getKVValue(singleKey, token).getValue();
+                if (value == null) {
+                    log.warn("Key prefix '" + prefix + "' is not found.");
+                } else {
+                    log.info("Path '" + singleKey + "' is a single key.");
+                    setProjectProperty("", value);
+                }
+            } catch (OperationException e) {
+                if (e.getStatusCode() == 403) {
+                    log.warn("Access to key prefix '" + prefix + "' is forbidden by Consul ACL.");
+                } else {
+                    throw e;
+                }
+            }
         }
+    }
+
+    private void setProjectProperty(String prefix, GetValue value) {
+        Log log = getLog();
+        Properties properties = project.getProperties();
+        String key = getPropertyKey(value.getKey(), prefix);
+        String decodedValue = value.getDecodedValue(UTF_8);
+        log.debug("Key: '" + key + "',\t value: '" + decodedValue + "'");
+        properties.setProperty(key, decodedValue);
     }
 
     static String getPropertyKey(String key, String prefix) {
@@ -110,6 +137,14 @@ public class ReadConsulMojo extends AbstractMojo {
 
     void setPort(int port) {
         this.port = port;
+    }
+
+    String getToken() {
+        return token;
+    }
+
+    void setToken(String token) {
+        this.token = token;
     }
 
     void setProject(MavenProject project) {

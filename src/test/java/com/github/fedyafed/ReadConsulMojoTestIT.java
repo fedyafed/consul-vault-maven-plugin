@@ -30,21 +30,25 @@ public class ReadConsulMojoTestIT {
     private static final String NEW_VALUE = "Test New Value.";
 
     private MavenProject projectStub;
+    private ConsulClient client;
+    private int httpPort;
 
+    /**
+     * Before each test execution.
+     */
     @Before
     public void setUp() {
-        consul.reset();
         projectStub = new MavenProject();
+        consul.reset();
+        httpPort = consul.getHttpPort();
+        client = new ConsulClient("localhost", httpPort);
     }
 
     /**
-     * Test mojo execution.
+     * Test default mojo execution.
      */
     @Test
-    public void testExecute() throws MojoExecutionException {
-        int httpPort = consul.getHttpPort();
-        System.out.println(httpPort);
-        ConsulClient client = new ConsulClient("localhost", httpPort);
+    public void testDefaultExecute() throws MojoExecutionException {
         client.setKVValue(PREFIX + "/" + KEY, VALUE);
         client.setKVValue(CUSTOM_PREFIX + "/" + CUSTOM_PREFIX_KEY, VALUE);
 
@@ -63,9 +67,6 @@ public class ReadConsulMojoTestIT {
      */
     @Test
     public void testCustomPrefix() throws MojoExecutionException {
-        int httpPort = consul.getHttpPort();
-        System.out.println(httpPort);
-        ConsulClient client = new ConsulClient("localhost", httpPort);
         client.setKVValue(PREFIX + "/" + KEY, VALUE);
         client.setKVValue(CUSTOM_PREFIX + "/" + CUSTOM_PREFIX_KEY, VALUE);
 
@@ -81,14 +82,47 @@ public class ReadConsulMojoTestIT {
     }
 
     /**
+     * Test mojo execution with custom prefix.
+     */
+    @Test
+    public void testSingleKeyPrefix() throws MojoExecutionException {
+        client.setKVValue(PREFIX + "/" + KEY, VALUE);
+        client.setKVValue(CUSTOM_PREFIX + "/" + CUSTOM_PREFIX_KEY, VALUE);
+
+        ReadConsulMojo readConsulMojo = new ReadConsulMojo();
+        readConsulMojo.setPort(httpPort);
+        readConsulMojo.setProject(projectStub);
+        readConsulMojo.setPrefixes(singletonList(PREFIX + "/" + KEY));
+        readConsulMojo.execute();
+
+        Properties expectedProperties = new Properties();
+        expectedProperties.put(PREFIX + "." + KEY, VALUE);
+        assertEquals(expectedProperties, projectStub.getProperties());
+    }
+
+    /**
+     * Test mojo execution with absent prefix.
+     */
+    @Test
+    public void testAbsentKeyPrefix() throws MojoExecutionException {
+        client.setKVValue(PREFIX + "/" + KEY, VALUE);
+
+        ReadConsulMojo readConsulMojo = new ReadConsulMojo();
+        readConsulMojo.setPort(httpPort);
+        readConsulMojo.setProject(projectStub);
+        readConsulMojo.setPrefixes(singletonList(CUSTOM_PREFIX));
+        readConsulMojo.execute();
+
+        Properties expectedProperties = new Properties();
+        assertEquals(expectedProperties, projectStub.getProperties());
+    }
+
+    /**
      * Test mojo execution with many prefixes.
      * Test overriding properties - last prefix win.
      */
     @Test
     public void testManyPrefixes() throws MojoExecutionException {
-        int httpPort = consul.getHttpPort();
-        System.out.println(httpPort);
-        ConsulClient client = new ConsulClient("localhost", httpPort);
         client.setKVValue(PREFIX + "/" + KEY, VALUE);
         client.setKVValue(CUSTOM_PREFIX + "/" + CUSTOM_PREFIX_KEY, VALUE);
         client.setKVValue(CUSTOM_PREFIX + "/" + KEY, NEW_VALUE);

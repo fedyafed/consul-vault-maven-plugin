@@ -25,12 +25,19 @@ public class ReadConsulMojoTest extends TestCase {
         assertEquals(8500, readConsulMojo.getPort());
     }
 
+    public void testDefaultToken() {
+        ReadConsulMojo readConsulMojo = new ReadConsulMojo();
+        assertEquals(null, readConsulMojo.getToken());
+    }
+
+
     /**
      * Test property key converter.
      */
     public void testPropertyKey() {
         assertEquals("test", getPropertyKey("prefix/test", "prefix/"));
         assertEquals("test.key", getPropertyKey("prefix/test/key", "prefix/"));
+        assertEquals("prefix.test.key", getPropertyKey("prefix/test/key", ""));
         assertEquals("test", getPropertyKey("prefix/x1/test", "prefix/x1/"));
     }
 }

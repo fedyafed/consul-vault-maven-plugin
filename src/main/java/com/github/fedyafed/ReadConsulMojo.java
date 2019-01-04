@@ -71,6 +71,7 @@ public class ReadConsulMojo extends AbstractMojo {
      * @throws MojoExecutionException - default Mojo exception.
      */
     public void execute() throws MojoExecutionException {
+        getLog().debug(String.format("Connecting to Consul at: http://%s:%s", host, port));
         client = new ConsulClient(host, port);
         servicesRequest = HealthServicesRequest.newBuilder().setToken(token).build();
 
@@ -82,7 +83,7 @@ public class ReadConsulMojo extends AbstractMojo {
         Log log = getLog();
         List<HealthService> services = client.getHealthServices(serviceName, servicesRequest)
                 .getValue();
-        if (services != null) {
+        if (services != null && !services.isEmpty()) {
             HealthService service = services.get(0);
             setProjectPropertyFromService(service);
         } else {

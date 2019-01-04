@@ -18,7 +18,7 @@ import java.util.Properties;
 import static java.util.Collections.singletonList;
 import static org.junit.Assert.assertEquals;
 
-public class ReadConsulMojoTestIT {
+public class ReadConsulMojoKVTestIT {
 
     @ClassRule
     public static final ConsulResource consul = new ConsulResource();

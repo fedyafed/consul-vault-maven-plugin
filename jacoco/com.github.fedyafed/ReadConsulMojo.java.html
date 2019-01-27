@@ -5,6 +5,9 @@
 package com.github.fedyafed;
 
 import com.ecwid.consul.v1.ConsulClient;
+import com.ecwid.consul.v1.OperationException;
+import com.ecwid.consul.v1.health.HealthServicesRequest;
+import com.ecwid.consul.v1.health.model.HealthService;
 import com.ecwid.consul.v1.kv.model.GetValue;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -14,9 +17,9 @@ import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Properties;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.*;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
@@ -24,7 +27,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
  * Goal read a value from Consul KV by given key.
  */
 @Mojo(name = &quot;read-consul&quot;, defaultPhase = LifecyclePhase.INITIALIZE)
-<span class="fc" id="L27">public class ReadConsulMojo extends AbstractMojo {</span>
+<span class="fc" id="L30">public class ReadConsulMojo extends AbstractMojo {</span>
 
     @Parameter(defaultValue = &quot;${project}&quot;, required = true, readonly = true)
     private MavenProject project;
@@ -32,21 +35,35 @@ import static java.nio.charset.StandardCharsets.UTF_8;
     /**
      * Consul KV key prefixes.
      */
-<span class="fc" id="L35">    @Parameter(defaultValue = &quot;${consul.prefixes}&quot;)</span>
-<span class="fc" id="L36">    private List&lt;String&gt; prefixes = Collections.singletonList(&quot;config&quot;);</span>
+<span class="fc" id="L38">    @Parameter(defaultValue = &quot;${consul.prefixes}&quot;)</span>
+<span class="fc" id="L39">    private List&lt;String&gt; prefixes = Collections.emptyList();</span>
 
     /**
      * Consul hostname.
      */
-<span class="fc" id="L41">    @Parameter(defaultValue = &quot;${consul.host}&quot;)</span>
+<span class="fc" id="L44">    @Parameter(defaultValue = &quot;${consul.host}&quot;)</span>
     private String host = &quot;localhost&quot;;
 
     /**
      * Consul HTTP port.
      */
-<span class="fc" id="L47">    @Parameter(defaultValue = &quot;${consul.port}&quot;)</span>
+<span class="fc" id="L50">    @Parameter(defaultValue = &quot;${consul.port}&quot;)</span>
     private int port = 8500;
+
+    /**
+     * Consul ACL token.
+     */
+    @Parameter(defaultValue = &quot;${consul.token}&quot;)
+    private String token;
+
+    /**
+     * Active services.
+     */
+<span class="fc" id="L62">    @Parameter(defaultValue = &quot;${consul.services}&quot;)</span>
+<span class="fc" id="L63">    private List&lt;String&gt; services = Collections.emptyList();</span>
+
     private ConsulClient client;
+    private HealthServicesRequest servicesRequest;
 
     /**
      * Mojo execution.
@@ -54,66 +71,161 @@ import static java.nio.charset.StandardCharsets.UTF_8;
      * @throws MojoExecutionException - default Mojo exception.
      */
     public void execute() throws MojoExecutionException {
-<span class="nc" id="L57">        client = new ConsulClient(host, port);</span>
+<span class="nc" id="L74">        getLog().debug(String.format(&quot;Connecting to Consul at: http://%s:%s&quot;, host, port));</span>
+<span class="nc" id="L75">        client = new ConsulClient(host, port);</span>
+<span class="nc" id="L76">        servicesRequest = HealthServicesRequest.newBuilder().setToken(token).build();</span>
 
-<span class="nc bnc" id="L59" title="All 2 branches missed.">        for (String prefix : prefixes) {</span>
-<span class="nc" id="L60">            setProperties(prefix);</span>
-<span class="nc" id="L61">        }</span>
-<span class="nc" id="L62">    }</span>
+<span class="nc" id="L78">        prefixes.forEach(this::setPropertiesFromKV);</span>
+<span class="nc" id="L79">        services.forEach(this::setPropertiesFromService);</span>
+<span class="nc" id="L80">    }</span>
 
-    private void setProperties(String prefix) {
-<span class="nc" id="L65">        Log log = getLog();</span>
-<span class="nc bnc" id="L66" title="All 2 branches missed.">        if (!prefix.endsWith(&quot;/&quot;)) {</span>
-<span class="nc" id="L67">            prefix += '/';</span>
+    private void setPropertiesFromService(String serviceName) {
+<span class="nc" id="L83">        Log log = getLog();</span>
+<span class="nc" id="L84">        List&lt;HealthService&gt; services = client.getHealthServices(serviceName, servicesRequest)</span>
+<span class="nc" id="L85">                .getValue();</span>
+<span class="nc bnc" id="L86" title="All 4 branches missed.">        if (services != null &amp;&amp; !services.isEmpty()) {</span>
+<span class="nc" id="L87">            HealthService service = services.get(0);</span>
+<span class="nc" id="L88">            setProjectPropertyFromService(service);</span>
+<span class="nc" id="L89">        } else {</span>
+<span class="nc" id="L90">            log.warn(&quot;Service '&quot; + serviceName + &quot;' is not found.&quot;);</span>
+        }
+<span class="nc" id="L92">    }</span>
+
+    private void setPropertiesFromKV(String prefix) {
+<span class="nc" id="L95">        Log log = getLog();</span>
+<span class="nc bnc" id="L96" title="All 2 branches missed.">        if (!prefix.endsWith(&quot;/&quot;)) {</span>
+<span class="nc" id="L97">            prefix += '/';</span>
         }
 
-<span class="nc" id="L70">        List&lt;GetValue&gt; values = client.getKVValues(prefix).getValue();</span>
-<span class="nc bnc" id="L71" title="All 2 branches missed.">        if (values != null) {</span>
-<span class="nc" id="L72">            Properties properties = project.getProperties();</span>
-<span class="nc bnc" id="L73" title="All 2 branches missed.">            for (GetValue value : values) {</span>
-<span class="nc" id="L74">                String key = getPropertyKey(value.getKey(), prefix);</span>
-<span class="nc" id="L75">                String decodedValue = value.getDecodedValue(UTF_8);</span>
-<span class="nc" id="L76">                log.debug(&quot;Key:\t&quot; + key + &quot;, value:\t&quot; + decodedValue);</span>
-<span class="nc" id="L77">                properties.setProperty(key, decodedValue);</span>
-<span class="nc" id="L78">            }</span>
-<span class="nc" id="L79">            log.info(&quot;Found properties:\t&quot; + values.size() + &quot; for prefix:\t&quot; + prefix);</span>
-<span class="nc" id="L80">        } else {</span>
-<span class="nc" id="L81">            log.warn(&quot;Key prefix\t'&quot; + prefix + &quot;' not found.&quot;);</span>
+<span class="nc" id="L100">        List&lt;GetValue&gt; values = client.getKVValues(prefix, token).getValue();</span>
+<span class="nc bnc" id="L101" title="All 2 branches missed.">        if (values != null) {</span>
+<span class="nc" id="L102">            log.info(&quot;Found properties: &quot; + values.size() + &quot; for prefix: '&quot; + prefix + &quot;'&quot;);</span>
+<span class="nc bnc" id="L103" title="All 2 branches missed.">            for (GetValue value : values) {</span>
+<span class="nc" id="L104">                setProjectPropertyFromKV(prefix, value);</span>
+<span class="nc" id="L105">            }</span>
+        } else {
+            try {
+<span class="nc" id="L108">                String singleKey = prefix.substring(0, prefix.length() - 1);</span>
+<span class="nc" id="L109">                GetValue value = client.getKVValue(singleKey, token).getValue();</span>
+<span class="nc bnc" id="L110" title="All 2 branches missed.">                if (value == null) {</span>
+<span class="nc" id="L111">                    log.warn(&quot;Key prefix '&quot; + prefix + &quot;' is not found.&quot;);</span>
+                } else {
+<span class="nc" id="L113">                    log.info(&quot;Path '&quot; + singleKey + &quot;' is a single key.&quot;);</span>
+<span class="nc" id="L114">                    setProjectPropertyFromKV(&quot;&quot;, value);</span>
+                }
+<span class="nc" id="L116">            } catch (OperationException e) {</span>
+<span class="nc bnc" id="L117" title="All 2 branches missed.">                if (e.getStatusCode() == 403) {</span>
+<span class="nc" id="L118">                    log.warn(&quot;Access to key prefix '&quot; + prefix + &quot;' is forbidden by Consul ACL.&quot;);</span>
+                } else {
+<span class="nc" id="L120">                    throw e;</span>
+                }
+<span class="nc" id="L122">            }</span>
         }
-<span class="nc" id="L83">    }</span>
+<span class="nc" id="L124">    }</span>
+
+    private void setProjectPropertyFromKV(String prefix, GetValue value) {
+<span class="nc" id="L127">        Log log = getLog();</span>
+<span class="nc" id="L128">        Properties properties = project.getProperties();</span>
+<span class="nc" id="L129">        String key = getPropertyKey(value.getKey(), prefix);</span>
+<span class="nc" id="L130">        String decodedValue = value.getDecodedValue(UTF_8);</span>
+<span class="nc" id="L131">        log.debug(&quot;Key: '&quot; + key + &quot;',\t value: '&quot; + decodedValue + &quot;'&quot;);</span>
+<span class="nc" id="L132">        properties.setProperty(key, decodedValue);</span>
+<span class="nc" id="L133">    }</span>
+
+    private void setProjectPropertyFromService(HealthService healthService) {
+<span class="nc" id="L136">        HealthService.Service service = healthService.getService();</span>
+<span class="nc" id="L137">        Log log = getLog();</span>
+<span class="nc" id="L138">        Properties properties = project.getProperties();</span>
+<span class="nc" id="L139">        String name = service.getService();</span>
+<span class="nc" id="L140">        String scheme = &quot;http&quot;;</span>
+<span class="nc" id="L141">        String host = getServiceHost(healthService);</span>
+<span class="nc" id="L142">        Integer port = service.getPort();</span>
+<span class="nc" id="L143">        Map&lt;String, String&gt; metadata = getServiceMetadata(service);</span>
+<span class="nc bnc" id="L144" title="All 2 branches missed.">        if (Boolean.parseBoolean(metadata.get(&quot;secure&quot;))) {</span>
+<span class="nc" id="L145">            scheme = &quot;https&quot;;</span>
+        }
+<span class="nc bnc" id="L147" title="All 2 branches missed.">        if (metadata.containsKey(&quot;scheme&quot;)) {</span>
+<span class="nc" id="L148">            scheme = metadata.get(&quot;scheme&quot;);</span>
+        }
+        String uri;
+        try {
+<span class="nc" id="L152">            uri = new URI(scheme, null, host, port, null, null, null).toString();</span>
+
+<span class="nc" id="L154">            log.debug(&quot;Service: '&quot; + name + &quot;',\t URI: '&quot; + uri + &quot;'&quot;);</span>
+
+<span class="nc" id="L156">            properties.setProperty(name + &quot;.uri&quot;, uri);</span>
+<span class="nc" id="L157">            properties.setProperty(name + &quot;.scheme&quot;, scheme);</span>
+<span class="nc" id="L158">            properties.setProperty(name + &quot;.host&quot;, host);</span>
+<span class="nc" id="L159">            properties.setProperty(name + &quot;.port&quot;, String.valueOf(port));</span>
+<span class="nc" id="L160">        } catch (URISyntaxException e) {</span>
+<span class="nc" id="L161">            log.warn(&quot;Service '&quot; + name + &quot;' has invalid URI&quot;, e);</span>
+<span class="nc" id="L162">        }</span>
+<span class="nc" id="L163">    }</span>
+
+    private String getServiceHost(HealthService service) {
+<span class="nc" id="L166">        String host = service.getService().getAddress();</span>
+<span class="nc bnc" id="L167" title="All 4 branches missed.">        if (host != null &amp;&amp; !host.isEmpty()) {</span>
+<span class="nc" id="L168">            return host;</span>
+        }
+<span class="nc" id="L170">        return service.getNode().getAddress();</span>
+    }
+
+    private Map&lt;String, String&gt; getServiceMetadata(HealthService.Service service) {
+<span class="nc" id="L174">        Map&lt;String, String&gt; meta = service.getMeta();</span>
+<span class="nc bnc" id="L175" title="All 2 branches missed.">        if (meta == null) {</span>
+<span class="nc" id="L176">            meta = new HashMap&lt;&gt;();</span>
+        }
+<span class="nc" id="L178">        return meta;</span>
+    }
 
     static String getPropertyKey(String key, String prefix) {
-<span class="fc" id="L86">        return key</span>
-<span class="fc" id="L87">                .substring(prefix.length())</span>
-<span class="fc" id="L88">                .replace('/', '.');</span>
+<span class="fc" id="L182">        return key</span>
+<span class="fc" id="L183">                .substring(prefix.length())</span>
+<span class="fc" id="L184">                .replace('/', '.');</span>
     }
 
     public List&lt;String&gt; getPrefixes() {
-<span class="fc" id="L92">        return prefixes;</span>
+<span class="fc" id="L188">        return prefixes;</span>
     }
 
     public void setPrefixes(List&lt;String&gt; prefixes) {
-<span class="nc" id="L96">        this.prefixes = prefixes;</span>
-<span class="nc" id="L97">    }</span>
+<span class="nc" id="L192">        this.prefixes = prefixes;</span>
+<span class="nc" id="L193">    }</span>
 
     String getHost() {
-<span class="fc" id="L100">        return host;</span>
+<span class="fc" id="L196">        return host;</span>
     }
 
     void setHost(String host) {
-<span class="nc" id="L104">        this.host = host;</span>
-<span class="nc" id="L105">    }</span>
+<span class="nc" id="L200">        this.host = host;</span>
+<span class="nc" id="L201">    }</span>
 
     int getPort() {
-<span class="fc" id="L108">        return port;</span>
+<span class="fc" id="L204">        return port;</span>
     }
 
     void setPort(int port) {
-<span class="nc" id="L112">        this.port = port;</span>
-<span class="nc" id="L113">    }</span>
+<span class="nc" id="L208">        this.port = port;</span>
+<span class="nc" id="L209">    }</span>
+
+    String getToken() {
+<span class="fc" id="L212">        return token;</span>
+    }
+
+    void setToken(String token) {
+<span class="nc" id="L216">        this.token = token;</span>
+<span class="nc" id="L217">    }</span>
+
+    public List&lt;String&gt; getServices() {
+<span class="fc" id="L220">        return services;</span>
+    }
+
+    public void setServices(List&lt;String&gt; services) {
+<span class="nc" id="L224">        this.services = services;</span>
+<span class="nc" id="L225">    }</span>
 
     void setProject(MavenProject project) {
-<span class="nc" id="L116">        this.project = project;</span>
-<span class="nc" id="L117">    }</span>
+<span class="nc" id="L228">        this.project = project;</span>
+<span class="nc" id="L229">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.0.201801022044</span></div></body></html>

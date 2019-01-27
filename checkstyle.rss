@@ -23,9 +23,9 @@ under the License.
     <link>https://github.com/fedyafed/consul-vault-maven-plugin</link>
     <description>Consul-Vault Maven Plugin - Checkstyle report</description>
     <language>en-us</language>
-    <copyright>&#169;2018</copyright>
+    <copyright>&#169;2018 - 2019</copyright>
     <item>
-      <title>File: 4,
+      <title>File: 6,
              Errors: 0,
              Warnings: 0,
              Infos: 0
@@ -46,7 +46,35 @@ under the License.
           <tbody>
                           <tr>
                 <td>
+                  <a href="https://github.com/fedyafed/consul-vault-maven-plugin/checkstyle.html#com.github.fedyafed.ReadConsulMojoServiceTestIT.java">com/github/fedyafed/ReadConsulMojoServiceTestIT.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="https://github.com/fedyafed/consul-vault-maven-plugin/checkstyle.html#com.github.fedyafed.ReadConsulMojoTest.java">com/github/fedyafed/ReadConsulMojoTest.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/fedyafed/consul-vault-maven-plugin/checkstyle.html#com.github.fedyafed.ReadConsulMojoKVTestIT.java">com/github/fedyafed/ReadConsulMojoKVTestIT.java</a>
                 </td>
                 <td>
                   0
@@ -88,7 +116,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/fedyafed/consul-vault-maven-plugin/checkstyle.html#com.github.fedyafed.ReadConsulMojoTestIT.java">com/github/fedyafed/ReadConsulMojoTestIT.java</a>
+                  <a href="https://github.com/fedyafed/consul-vault-maven-plugin/checkstyle.html#com.github.fedyafed.ReadConsulMojoAclTestIT.java">com/github/fedyafed/ReadConsulMojoAclTestIT.java</a>
                 </td>
                 <td>
                   0

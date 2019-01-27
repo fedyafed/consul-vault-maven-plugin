@@ -50,7 +50,6 @@ public class ReadConsulMojoKVTestIT {
     @Test
     public void testDefaultExecute() throws MojoExecutionException {
         client.setKVValue(PREFIX + "/" + KEY, VALUE);
-        client.setKVValue(CUSTOM_PREFIX + "/" + CUSTOM_PREFIX_KEY, VALUE);
 
         ReadConsulMojo readConsulMojo = new ReadConsulMojo();
         readConsulMojo.setPort(httpPort);
@@ -58,7 +57,6 @@ public class ReadConsulMojoKVTestIT {
         readConsulMojo.execute();
 
         Properties expectedProperties = new Properties();
-        expectedProperties.put(KEY, VALUE);
         assertEquals(expectedProperties, projectStub.getProperties());
     }
 

@@ -36,7 +36,7 @@ public class ReadConsulMojo extends AbstractMojo {
      * Consul KV key prefixes.
      */
     @Parameter(defaultValue = "${consul.prefixes}")
-    private List<String> prefixes = Collections.singletonList("config");
+    private List<String> prefixes = Collections.emptyList();
 
     /**
      * Consul hostname.

@@ -21,6 +21,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 
+import static java.util.Collections.singletonList;
 import static org.junit.Assert.assertEquals;
 
 public class ReadConsulMojoAclTestIT {
@@ -103,6 +104,7 @@ public class ReadConsulMojoAclTestIT {
         readConsulMojo.setPort(httpPort);
         readConsulMojo.setProject(projectStub);
         readConsulMojo.setToken(clientReadToken);
+        readConsulMojo.setPrefixes(singletonList(PREFIX));
         readConsulMojo.execute();
 
         Properties expectedProperties = new Properties();
@@ -141,7 +143,7 @@ public class ReadConsulMojoAclTestIT {
         readConsulMojo.setPort(httpPort);
         readConsulMojo.setProject(projectStub);
         readConsulMojo.setToken(clientReadToken);
-        readConsulMojo.setServices(Collections.singletonList(SERVICE_NAME));
+        readConsulMojo.setServices(singletonList(SERVICE_NAME));
         readConsulMojo.execute();
 
         Properties expectedProperties = new Properties();

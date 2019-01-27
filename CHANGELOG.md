@@ -8,9 +8,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Security:
 ### Added:
+- Support Consul ACL token [#32](https://github.com/fedyafed/consul-vault-maven-plugin/issues/32).
+- Consul service discovery [#33](https://github.com/fedyafed/consul-vault-maven-plugin/issues/33).
+
 ### Changed:
 ### Deprecated:
 ### Removed:
+- Default key prefix `config`.
+
 ### Fixed:
 
 

@@ -1,3 +1,6 @@
 Test
 substitution test-key=${test-key}
 value
+
+Consul URI is: ${consul.uri}
+Vault URI is: ${vault.uri}

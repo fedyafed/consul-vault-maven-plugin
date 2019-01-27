@@ -6,15 +6,13 @@ package com.github.fedyafed;
 
 import junit.framework.TestCase;
 
-import java.util.Collections;
-
 import static com.github.fedyafed.ReadConsulMojo.getPropertyKey;
-import static java.util.Collections.singletonList;
+import static java.util.Collections.emptyList;
 
 public class ReadConsulMojoTest extends TestCase {
     public void testDefaultPrefixes() {
         ReadConsulMojo readConsulMojo = new ReadConsulMojo();
-        assertEquals(singletonList("config"), readConsulMojo.getPrefixes());
+        assertEquals(emptyList(), readConsulMojo.getPrefixes());
     }
 
     public void testDefaultHost() {
@@ -29,12 +27,12 @@ public class ReadConsulMojoTest extends TestCase {
 
     public void testDefaultToken() {
         ReadConsulMojo readConsulMojo = new ReadConsulMojo();
-        assertEquals(null, readConsulMojo.getToken());
+        assertNull(readConsulMojo.getToken());
     }
 
     public void testDefaultServices() {
         ReadConsulMojo readConsulMojo = new ReadConsulMojo();
-        assertEquals(Collections.emptyList(), readConsulMojo.getServices());
+        assertEquals(emptyList(), readConsulMojo.getServices());
     }
 
     /**

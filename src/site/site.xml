@@ -9,6 +9,10 @@
 
     <body>
         <head/>
+        <menu name="Overview">
+            <item name="Introduction" href="index.html"/>
+            <item name="Goals" href="plugin-info.html"/>
+        </menu>
         <menu ref="reports">
         </menu>
     </body>

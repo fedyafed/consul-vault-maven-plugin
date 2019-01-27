@@ -1,0 +1,29 @@
+Introduction
+============
+
+${project.name}
+
+This Maven plugin is being developed.
+
+Current status
+--------------
+
+To do:
+
+- read from Vault
+- use SSL certificates
+
+Done:
+
+- write to project properties
+- read from Consul K/V
+- read from Consul healthy service
+- use Consul ACL token
+
+
+Goals Overview
+--------------
+
+- [consul-vault:read-consul](read-consul-mojo.html): read from Consul K/V store
+  by given key prefixes and get properties of healthy services by given
+  service names. Consul ACL token is optional.

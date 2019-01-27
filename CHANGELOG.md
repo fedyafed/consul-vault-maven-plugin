@@ -5,18 +5,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 
-## [Unreleased]
-### Security:
+## [0.2.0] - 2019-01-27
 ### Added:
 - Support Consul ACL token [#32](https://github.com/fedyafed/consul-vault-maven-plugin/issues/32).
 - Consul service discovery [#33](https://github.com/fedyafed/consul-vault-maven-plugin/issues/33).
 
-### Changed:
-### Deprecated:
 ### Removed:
 - Default key prefix `config`.
-
-### Fixed:
 
 
 ## [0.1.0] - 2018-05-06
@@ -131,7 +126,7 @@ Included: 0.0.3, 0.0.3.1, 0.0.3.2, 0.0.3.3, 0.0.3.4, 0.0.3.5.
 - README.md.
 
 
-[Unreleased]: https://github.com/fedyafed/consul-vault-maven-plugin/compare/0.1.0...HEAD
+[0.2.0]: https://github.com/fedyafed/consul-vault-maven-plugin/compare/0.1.0...0.2.0
 [0.1.0]: https://github.com/fedyafed/consul-vault-maven-plugin/compare/0.0.5.1...0.1.0
 [0.0.5.1]: https://github.com/fedyafed/consul-vault-maven-plugin/compare/0.0.4...0.0.5.1
 [0.0.4]: https://github.com/fedyafed/consul-vault-maven-plugin/compare/0.0.3.5...0.0.4
